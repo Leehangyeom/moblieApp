@@ -3,4 +3,4 @@
 ## 이한겸의 모바일앱 수업
 
 ## 앱 UI 화면
-![앱 메인 화면](C:\Users\PC\Desktop\screenshot.png)
+![앱 메인 화면](C:\Users\PC\Desktop\screenshot)
