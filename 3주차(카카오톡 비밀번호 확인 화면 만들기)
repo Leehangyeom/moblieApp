@@ -1,0 +1,106 @@
+package com.example.app02
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            MaterialTheme {
+                PasswordConfirmScreen()
+            }
+        }
+    }
+}
+
+@Composable
+fun PasswordConfirmScreen() {
+    val focusManager = LocalFocusManager.current
+    var password by remember { mutableStateOf("") }
+    var showError by remember { mutableStateOf(false) }
+
+    Surface(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp)
+                .padding(top = 56.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(text = "카카오톡", style = MaterialTheme.typography.titleLarge)
+            Spacer(modifier = Modifier.height(32.dp))
+
+            OutlinedTextField(
+                value = password,
+                onValueChange = {
+                    password = it
+                    if (showError) showError = false
+                },
+                placeholder = { Text("비밀번호") },
+                visualTransformation = PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            if (showError) {
+                Text(
+                    text = "비밀번호가 틀렸습니다.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier
+                        .align(Alignment.Start)
+                        .padding(top = 8.dp)
+                )
+            } else {
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+
+            Spacer(modifier = Modifier.height(18.dp))
+
+            Button(
+                onClick = {
+                    // 예시 검증: 비밀번호가 "1234"일 때 통과 (실제 로직은 서버/DB 연동)
+                    if (password == "1234") {
+                        focusManager.clearFocus()
+                        // TODO: 인증 성공 처리 (다음 화면 이동 등)
+                    } else {
+                        showError = true
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(48.dp)
+            ) {
+                Text("확인")
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            TextButton(onClick = { /* 비밀번호 찾기 동작 */ }) {
+                Text("비밀번호가 기억나지 않으세요?")
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PasswordConfirmScreenPreview() {
+    MaterialTheme {
+        PasswordConfirmScreen()
+    }
+}
