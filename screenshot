@@ -1,0 +1,3 @@
+git add screenshots/
+git commit -m "Add UI screenshots"
+git push origin main
