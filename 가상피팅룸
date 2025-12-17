@@ -1,0 +1,32 @@
+package com.example.virtualfittingroom
+
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+
+
+class MainActivity : AppCompatActivity() {
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+
+        val avatarImage = findViewById<ImageView>(R.id.avatarImage)
+        val topBtn = findViewById<Button>(R.id.topBtn)
+        val bottomBtn = findViewById<Button>(R.id.bottomBtn)
+
+
+        topBtn.setOnClickListener {
+            avatarImage.setImageResource(R.drawable.avatar_top)
+        }
+
+
+        bottomBtn.setOnClickListener {
+            avatarImage.setImageResource(R.drawable.avatar_bottom)
+        }
+    }
+}
